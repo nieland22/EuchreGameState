@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 EditText edit = (EditText)findViewById(R.id.editText);
                 //edit.setText(GameState.toString());
+                
             }
         });
     }
