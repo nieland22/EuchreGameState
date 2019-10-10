@@ -12,12 +12,18 @@ public class Card implements Serializable {
     int pictureID;
     enum SUIT { HEARTS, SPADES, CLUBS, DIAMONDS }
     enum NUMBER { NINE, TEN, ACE, JACK, QUEEN, KING }
+    String cardName;
 
     //sets the card's suit, number value, and picture id
     public Card(SUIT suit, NUMBER number, int pID){
         this.pictureID = pID;
         //this.SUIT = suit;
         //this.NUMBER = number;
+        cardName = number + " of " + suit;
+    }
+
+    public String getCardName() {
+        return cardName;
     }
 
     public int getPictureID() {
