@@ -24,7 +24,7 @@ public class GameState {
     protected Card player2Play;
     protected Card player3Play;
     protected Card player4Play;
-    protected int middleCardSuit;
+    protected int middleCardSuit; // redundant bc suit is within card
     protected Card middleCard;
     protected boolean middleVisible;
     protected int whoIsAlone;
@@ -33,29 +33,17 @@ public class GameState {
     protected int numPlays; // how many cards have been played this trick
     protected int trickNum;
     // current score of each player (what card each player has played)
-    protected Card p1cardPlay = new Card();
-    protected Card p2cardPlay = new Card();
-    protected Card p3cardPlay = new Card();
-    protected Card p4cardPlay = new Card();
     // scores
     protected int redScore;
     protected int blueScore;
     protected int redTrickScore;
     protected int blueTrickScore;
     // current state of timer
-    protected int timerState;
     // current stage of game
     protected boolean startGame;
-    protected boolean gameOver;
-    protected boolean quit;
+    protected boolean quit; // get rid later
     protected int gameStage; // 0 for deal, 1 for deciding middle card, 2 for deciding trump, 3 for playing cards
     protected int numPass; // count number of passes
-    // extra
-    protected boolean goingAlone;
-    protected boolean orderUpTrump;
-    protected boolean pickItUp;
-    protected boolean pass;
-    protected boolean selectTrump;
     // random number generator
     protected Random rand = new Random();
 
@@ -85,19 +73,25 @@ public class GameState {
 
     //copy constructor
     public GameState(GameState other){
-    this.dealer = other.dealer;
-    this.teamDealer = other.teamDealer;
-    this.startGame = other.startGame;
-    this.quit = other.quit;
-    this.gameStage = other.gameStage;
-    this.numPass = other.numPass;
-    this.turn = other.turn;
-    this.trickNum = other.trickNum;
-    this.redScore = other.redScore;
-    this.blueScore = other.blueScore;
-    this.redTrickScore = other.redTrickScore;
-    this.blueTrickScore = other.blueTrickScore;
-
+        this.dealer = other.dealer;
+        this.teamDealer = other.teamDealer;
+        this.startGame = other.startGame;
+        this.quit = other.quit;
+        this.gameStage = other.gameStage;
+        this.numPass = other.numPass;
+        this.turn = other.turn;
+        this.trickNum = other.trickNum;
+        this.redScore = other.redScore;
+        this.blueScore = other.blueScore;
+        this.redTrickScore = other.redTrickScore;
+        this.blueTrickScore = other.blueTrickScore;
+        // init deck of cards
+        deck = new Card[24];
+        for(int y = 0; y < 24; y++){
+            // fill deck with the 32 cards from the CardDeck class
+            // need to make getCard method that allows deck to get cards
+            // deck[y] = getCard(y);
+        }
     }
 
     @Override
@@ -221,6 +215,7 @@ public class GameState {
         // if there have been three passes and the user passes then the middle is turn invisible
         if(numPass == 3 && turn == playerID){
             numPass++;
+            // make sure turn goes back to 1 if player is 4
             turn++;
             gameStage++;
             middleVisible = false;
@@ -229,6 +224,7 @@ public class GameState {
         // if numPass is not three or 7 then they can pass normally
         else if(numPass < 7 && numPass != 3 && turn == playerID){
             numPass++;
+            // case for player four switching to player 1
             turn++;
             return true;
         }
@@ -246,7 +242,7 @@ public class GameState {
             if(teamDealer == 0 && (playerID == 1 || playerID == 3) && (playerID != dealer)){
                 // set trump to suit of middle card
                 currentSuit = middleCardSuit;
-                // isOrderUpTrump()
+                isOrderUpTrump(dealer);
                 middleVisible = false;
                 whoCalled = 0;
                 if(dealer == 1){
@@ -262,7 +258,7 @@ public class GameState {
             if(teamDealer == 1 && (playerID == 2 || playerID == 4) && (playerID != dealer)){
                 // set trump to suit of middle card
                 currentSuit = middleCardSuit;
-                // isOrderUpTrump
+                isOrderUpTrump(dealer);
                 middleVisible = false;
                 whoCalled = 1;
                 if(dealer == 2){
@@ -279,7 +275,7 @@ public class GameState {
             else if(teamDealer == 0 && playerID == dealer){
                 // set trump to suit of middle card
                 currentSuit = middleCardSuit;
-                // isPickitUp()
+                // isPickitUp(dealer);
                 middleVisible = false;
                 whoCalled = 0;
                 whoIsAlone = dealer;
