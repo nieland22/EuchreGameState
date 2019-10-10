@@ -2,6 +2,10 @@ package edu.euchreproject.gamestate;
 
 import java.io.Serializable;
 
+/**
+ * CardDeck class - creates a deck of 24 euchre cards that are stored in an array
+ * @author Mikey Ant, Haley Welliver, Sierra Nieland, Alex Rogers
+ */
 //makes all possible cards
 public class CardDeck implements Serializable {
 

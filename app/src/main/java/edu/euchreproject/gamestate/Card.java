@@ -6,19 +6,25 @@ import android.graphics.BitmapFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Card class - information for creating a Card object
+ * @author Mikey Ant, Haley Welliver, Sierra Nieland, Alex Rogers
+ */
 //gets info about a specific card
 public class Card implements Serializable {
 
     int pictureID;
     enum SUIT { HEARTS, SPADES, CLUBS, DIAMONDS }
     enum NUMBER { NINE, TEN, ACE, JACK, QUEEN, KING }
+    SUIT theSuit;
+    NUMBER theNumber;
     String cardName;
 
     //sets the card's suit, number value, and picture id
     public Card(SUIT suit, NUMBER number, int pID){
         this.pictureID = pID;
-        //this.SUIT = suit;
-        //this.NUMBER = number;
+        this.theSuit = suit;
+        this.theNumber = number;
         cardName = number + " of " + suit;
     }
 
