@@ -104,20 +104,26 @@ public class GameState {
                         "Dealer: " + dealer + ", Team of Dealer: " + teamDealer + "\n" +
                         "Red Score, Tricks: " + redScore + ", " + redTrickScore + "\n" +
                         "Blue Score, Tricks: " + blueScore +", "+ blueTrickScore + "\n" +
-                        "Game Stage: " + gameStage
+                        "Game Stage: " + gameStage +
+                        "Going Alone Player: " + whoIsAlone + "\n" +
+                        "Passes: " + numPass + " Who Called: " + whoCalled + "\n" +
+                        "Trump Suit: " + currentSuit + "\n" +
+                        "Number of Plays; " + numPlays + "\n"
+
+                //passes, who is alone, suit, numPlays,
                 ;
         return string;
     }
 
     public String ArrayToString(ArrayList<Card> Arr){//where object is card object
-        String ArrayContents ="";
+        String ArrayContents1 ="";//contents of array
         for(int i =0; i< Arr.size(); i++){
             Card card = Arr.get(i);
 
-            String cardNameString = (card.getCardName() + ", ");
-            ArrayContents.concat(cardNameString);
+            String cardNameString = card.getCardName();
+            ArrayContents1= ArrayContents1 + ", " + cardNameString;
         }
-        return  ArrayContents;
+        return  ArrayContents1;
     }
 
     // method to deal
