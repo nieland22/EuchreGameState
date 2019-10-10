@@ -113,8 +113,9 @@ public class GameState {
         String ArrayContents ="";
         for(int i =0; i< Arr.size(); i++){
             Card card = Arr.get(i);
-            String cardNameString = (card.getCardname() + " ");
-            ArrayContents.concat(cardNameString + " ");
+
+            String cardNameString = (card.getCardName() + ", ");
+            ArrayContents.concat(cardNameString);
         }
         return  ArrayContents;
     }
