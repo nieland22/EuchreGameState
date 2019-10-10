@@ -102,8 +102,27 @@ public class GameState {
 
     @Override
     public String toString(){
+        String string = "Player 1's Hand: " + ArrayToString(player1Hand) + "\n" +
+                        "Player 2's Hand: " + ArrayToString(player2Hand) + "\n" +
+                        "Player 3's Hand: " + ArrayToString(player3Hand) + "\n" +
+                        "Player 4's Hand: " + ArrayToString(player4Hand) + "\n" +
+                        "Turn: " + turn + "\n" +
+                        "Dealer: " + dealer + ", Team of Dealer: " + teamDealer + "\n" +
+                        "Red Score, Tricks: " + redScore + ", " + redTrickScore + "\n" +
+                        "Blue Score, Tricks: " + blueScore +", "+ blueTrickScore + "\n" +
+                        "Game Stage: " + gameStage
+                ;
+        return string;
+    }
 
-        return "";
+    public String ArrayToString(ArrayList<Card> Arr){//where object is card object
+        String ArrayContents ="";
+        for(int i =0; i< Arr.size(); i++){
+            Card card = Arr.get(i);
+            String cardNameString = (card.getCardname() + " ");
+            ArrayContents.concat(cardNameString + " ");
+        }
+        return  ArrayContents;
     }
 
     // method to deal
