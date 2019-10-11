@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+/**
+ * @author Mikey Ant, Haley Welliver, Sierra Nieland, Alex Rogers
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

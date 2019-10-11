@@ -4,8 +4,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-
+/**
+ * GameState
+ * @author Mikey Ant, Haley Welliver, Sierra Nieland, Alex Rogers
+ */
 public class GameState {
     // info about the resources each player has
     protected ArrayList<Card> player1Hand = new ArrayList<>();
