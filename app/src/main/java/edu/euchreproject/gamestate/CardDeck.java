@@ -2,6 +2,8 @@ package edu.euchreproject.gamestate;
 
 import java.io.Serializable;
 
+
+
 //makes all possible cards
 public class CardDeck implements Serializable {
 

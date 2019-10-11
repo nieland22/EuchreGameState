@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
 public class GameState {
     // info about the resources each player has
     protected ArrayList<Card> player1Hand = new ArrayList<>();
@@ -38,6 +40,7 @@ public class GameState {
     protected int blueScore;
     protected int redTrickScore;
     protected int blueTrickScore;
+    protected boolean isRoundOver;
     // current state of timer
     // current stage of game
     protected boolean startGame;
@@ -56,7 +59,7 @@ public class GameState {
     this.quit = false;
     this.gameStage = 0;
     this.numPass = 0;
-    this.turn = 2;
+    this.turn = 0;
     this.trickNum = 0;
     this.redScore = 0;
     this.blueScore = 0;
@@ -104,11 +107,12 @@ public class GameState {
                         "Dealer: " + dealer + ", Team of Dealer: " + teamDealer + "\n" +
                         "Red Score, Tricks: " + redScore + ", " + redTrickScore + "\n" +
                         "Blue Score, Tricks: " + blueScore +", "+ blueTrickScore + "\n" +
-                        "Game Stage: " + gameStage +
+                        "Game Stage: " + gameStage + "\n" +
                         "Going Alone Player: " + whoIsAlone + "\n" +
                         "Passes: " + numPass + " Who Called: " + whoCalled + "\n" +
                         "Trump Suit: " + currentSuit + "\n" +
-                        "Number of Plays; " + numPlays + "\n"
+                        "Number of Plays; " + numPlays + "\n" +
+                        "Round is Over: " + isRoundOver(trickNum) + "\n"
 
                 //passes, who is alone, suit, numPlays,
                 ;
@@ -445,28 +449,28 @@ public class GameState {
             // make dealer discard a card and give them the middle card
             if(dealer == 1){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player1Hand.remove(discard);
                 player1Hand.add(middleCard);
             }
             else if(dealer == 2){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player2Hand.remove(discard);
                 player2Hand.add(middleCard);
             }
             else if(dealer == 3){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player3Hand.remove(discard);
                 player3Hand.add(middleCard);
             }
             else if(dealer == 4){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player4Hand.remove(discard);
                 player4Hand.add(middleCard);
@@ -481,28 +485,28 @@ public class GameState {
             // make dealer discard a card and give them the middle card
             if(dealer == 1){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player1Hand.remove(discard);
                 player1Hand.add(middleCard);
             }
             else if(dealer == 2){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player2Hand.remove(discard);
                 player2Hand.add(middleCard);
             }
             else if(dealer == 3){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player3Hand.remove(discard);
                 player3Hand.add(middleCard);
             }
             else if(dealer == 4){
                 // dealer taps card to discard
-                Card discard = new Card(); // place holder for when we find out how to set to tapped card
+                Card discard = new Card(Card.SUIT.HEARTS, Card.NUMBER.TEN, R.drawable.ten_h); // place holder for when we find out how to set to tapped card
                 // Card discard = card dealer taps
                 player4Hand.remove(discard);
                 player4Hand.add(middleCard);
@@ -888,53 +892,49 @@ public class GameState {
             trickNum++;
         }
         if(trickNum == 5){
-            isRoundOver(true);
+            isRoundOver(trickNum);
         }
     }
     // is round over
-    public void isRoundOver(boolean complete){
+    public boolean isRoundOver(int trickNum) {
         // update score
-        if(whoIsAlone == 1 || whoIsAlone == 3){
-            if(redTrickScore == 5){
+        if (whoIsAlone == 1 || whoIsAlone == 3) {
+            if (redTrickScore == 5) {
                 redScore += 4;
-                return;
-            }
-            else if(redTrickScore > 2){
+                return true;
+            } else if (redTrickScore > 2) {
                 redScore += 1;
-                return;
+                return false;
             }
-        }
-        else if(whoIsAlone == 2 || whoIsAlone == 4){
-            if(blueTrickScore == 5){
+        } else if (whoIsAlone == 2 || whoIsAlone == 4) {
+            if (blueTrickScore == 5) {
                 redScore += 4;
-                return;
-            }
-            else if(blueTrickScore > 2){
+                return true;
+            } else if (blueTrickScore > 2) {
                 redScore += 1;
-                return;
+                return false;
             }
-        }
-        else {
+        } else {
             if (redTrickScore == 5) {
                 redScore += 2;
-                return;
+                return true;
             } else if (redTrickScore > 2 && whoCalled == 1) {
                 redScore += 2;
-                return;
+                return false;
             } else if (redTrickScore > 2 && whoCalled == 0) {
                 redScore += 1;
-                return;
+                return false;
             } else if (blueTrickScore == 5) {
                 blueScore += 2;
-                return;
+                return true;
             } else if (blueTrickScore > 2 && whoCalled == 0) {
                 blueScore += 2;
-                return;
+                return false;
             } else if (blueTrickScore > 2 && whoCalled == 1) {
                 redScore += 1;
-                return;
+                return false;
             }
         }
-
+        return false;
     }
 }

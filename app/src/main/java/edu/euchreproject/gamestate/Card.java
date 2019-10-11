@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
+
 //gets info about a specific card
 public class Card implements Serializable {
 
